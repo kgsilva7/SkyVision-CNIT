@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: skyvision-api
+    restart: unless-stopped
+    environment:
+      - VIDEO_SOURCE=${VIDEO_SOURCE:-0}
+      - YOLO_WEIGHTS=${YOLO_WEIGHTS:-yolov8n.pt}
+      - GPS_MODE=${GPS_MODE:-simulado}
+      - SCORE_THR=${SCORE_THR:-0.35}
+      - IOU_THR=${IOU_THR:-0.45}
+    ports:
+      - "8000:8000"
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: skyvision-web
+    environment:
+      - VITE_API_BASE=http://backend:8000
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"

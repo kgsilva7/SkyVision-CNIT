@@ -1,0 +1,4 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+.app { display: grid; grid-template-columns: 1.2fr 1fr; grid-template-rows: auto 1fr; gap: 12px; height: 100%; padding: 12px; font-family: system-ui, sans-serif; }
+.header { grid-column: 1 / span 2; display:f
